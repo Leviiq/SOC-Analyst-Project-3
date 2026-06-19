@@ -97,27 +97,175 @@ index=main [search index=main EventCode=4720 | fields user] EventCode=4732
 
 ---
 
-## Practice Exercises (To Complete)
+## Practice Exercises - TryHackMe Room Solutions
 
-### Exercise 1: Find all failed login attempts in last 24 hours
-**Query:**
-```spl
-index=main EventCode=4625 earliest=-24h
-```
+### Task 2: Basic Search
 
-### Exercise 2: Identify top 5 users with most failed logins
-**Query:**
+**Q1: All Time events in windowslogs index**
 ```spl
-index=main EventCode=4625 | stats count by user | sort -count | head 5
+index=windowslogs
 ```
-
-### Exercise 3: Detect brute force (>10 failed logins from same IP in 5 min)
-**Query:**
-```spl
-index=main EventCode=4625 | stats count as failed_logins by src_ip, user | where failed_logins > 10
-```
+**Answer:** [Total event count from room]
 
 ---
 
-**Status:** Ready for hands-on practice  
-**Next Step:** Apply queries to real log data
+**Q2: Most frequent SourceIP**
+```spl
+index=windowslogs
+| top SourceIP
+```
+**Answer:** [SourceIP with highest count]
+
+---
+
+**Q3: Events on 04/15/2022 from 08:05 AM to 08:06 AM**
+```spl
+index=windowslogs
+| timechart span=1m count
+```
+**Answer:** [Event count in that time window]
+
+---
+
+### Task 3: Search Operators
+
+**Q1: EventID 4624 count**
+```spl
+index=windowslogs EventID=4624
+```
+**Answer:** [Total count]
+
+---
+
+**Q2: DestinationIp=172.18.39.6 and DestinationPort=135**
+```spl
+index=windowslogs DestinationIp=172.18.39.6 DestinationPort=135
+```
+**Answer:** [Event count]
+
+---
+
+**Q3: Highest SourceIp for Salena.Adam to 172.18.38.5**
+```spl
+index=windowslogs Hostname=Salena.Adam DestinationIp=172.18.38.5
+| stats count by SourceIp
+| sort - count
+```
+**Answer:** [SourceIP with highest count]
+
+---
+
+**Q4: Events matching "cyber*"**
+```spl
+index=windowslogs cyber*
+```
+**Answer:** [Total count]
+
+---
+
+**Q5: Lowest priority operator in Splunk**
+```spl
+index=windowslogs
+| search cyber*
+```
+**Answer:** [Operator name]
+
+---
+
+### Task 4: Filtering Results
+
+**Q1: Highest SourceProcessId**
+```spl
+index=windowslogs
+| fields Domain SourceProcessId TargetProcessId
+| stats count by SourceProcessId
+| sort - SourceProcessId
+```
+**Answer:** [Highest SourceProcessId]
+
+---
+
+**Q2: TargetObject ending with "Manager"**
+```spl
+index=windowslogs
+| regex TargetObject="Manager$"
+```
+**Answer:** [TargetObject value with most results]
+
+---
+
+### Task 5: Structuring Results
+
+**Q1: First AccountName in table**
+```spl
+index=windowslogs
+| table EventID AccountName AccountType
+```
+**Answer:** [First AccountName]
+
+---
+
+**Q2: First EventID after reverse**
+```spl
+index=windowslogs
+| table EventID AccountName AccountType
+| reverse
+```
+**Answer:** [First EventID after reversing]
+
+---
+
+**Q3: Password given to user A1berto**
+```spl
+index=windowslogs EventID=1
+| table _time ParentProcessId ProcessId ParentCommandLine CommandLine
+| reverse
+```
+**Answer:** [Password value]
+
+---
+
+### Task 6: Transforming Commands
+
+**Q1: Most executed Image**
+```spl
+index=windowslogs EventID=1
+| top Image
+```
+**Answer:** [Most common Image/executable]
+
+---
+
+**Q2: IP Region distribution**
+```spl
+index=windowslogs
+| iplocation SourceIp
+| stats count by Region
+```
+**Answer:** [Region name]
+
+---
+
+**Q3: Highest RiskScore Image**
+```spl
+index=windowslogs
+| lookup image_riskscore Image OUTPUT RiskScore
+| stats count by Image RiskScore
+| sort - RiskScore
+```
+**Answer:** [Image with highest RiskScore]
+
+---
+
+## Key Takeaways
+
+1. **Piping (|):** Connects commands for powerful analysis
+2. **Stats vs Top:** Stats more flexible, Top shows quick results
+3. **Regex:** Powerful pattern matching with anchors ($ = end)
+4. **Lookup:** Enriches data with external information
+5. **Timeline:** Essential for understanding attack progression
+
+---
+
+**Status:** Ready for real-world Splunk practice  
+**Next Step:** Apply queries to actual incident data
