@@ -1,7 +1,7 @@
 # Investigation #3: Conti Ransomware - Exchange Server Compromise
 
 **Source:** TryHackMe - Conti Ransomware Room  
-**Date Investigated:** 2026-06-22 
+**Date Investigated:** 2026-06-21
 **Analyst:** Abdulrhman (Levi)  
 **Investigation Time:** 2-3 hours
 
