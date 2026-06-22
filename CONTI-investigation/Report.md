@@ -456,5 +456,5 @@ Conti ransomware attack on Exchange server successfully contained. Attack chain 
 ---
 
 **Investigation Completed:** 2026-06-21 19:00 UTC  
-**Total Investigation Time:** 2.5 hours  
+**Total Investigation Time:** 2 hours  
 **Status:** ACTIVE RESPONSE - Containment complete, restoration in progress
