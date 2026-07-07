@@ -1,4 +1,4 @@
-# Custom Detection Rules - Day 18-21
+# Custom Detection Rules 
 
 **Date:** 2026-06-25  
 **Analyst:** Abdulrhman (Levi)
