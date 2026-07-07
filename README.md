@@ -1,4 +1,4 @@
-# SOC Analyst Portfolio - Project 3: Incident Response & Detection Engineering
+# SOC Analyst - Project 3: Incident Response & Detection Engineering
 
 ## Overview
 Advanced SIEM investigation and detection engineering training using Splunk. Complete hands-on SOC analyst program covering incident response, threat hunting, and custom detection rule creation.
